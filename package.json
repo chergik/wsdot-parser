@@ -16,6 +16,8 @@
   "author": "Andrey Chergik <achergik@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "request": "^2.55.0",
+    "url": "^0.10.3",
     "yargs": "^3.7.2"
   }
 }

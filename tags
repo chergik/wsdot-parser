@@ -4,14 +4,41 @@
 !_TAG_PROGRAM_NAME	CoffeeTags	//
 !_TAG_PROGRAM_URL	https://github.com/lukaszkorecki/CoffeeTags	/GitHub repository/
 !_TAG_PROGRAM_VERSION	0.5.1	//
-are	app.coffee	/^    console.log "Headers are: #{headers.join ', '}"$/;"	o	line:27	language:coffee	object:argv
-argv	app.coffee	/^argv = require('yargs').argv$/;"	o	line:12	language:coffee	object:window
-dataset	app.coffee	/^    dataset = JSON.parse dataset$/;"	o	line:23	language:coffee	object:argv
-fs	app.coffee	/^fs = require 'fs'$/;"	o	line:11	language:coffee	object:window
-headers	app.coffee	/^    headers = (column.name for column in dataset.meta.view.columns)$/;"	o	line:26	language:coffee	object:argv
-if	app.coffee	/^      if err$/;"	b	line:38	language:coffee
-if	app.coffee	/^  if err$/;"	b	line:18	language:coffee
-newRaw	app.coffee	/^      newRaw = {}$/;"	o	line:31	language:coffee	object:argv.raw
-raw	app.coffee	/^    for raw, i in dataset.data$/;"	o	line:30	language:coffee	object:argv
-results	app.coffee	/^    results = JSON.stringify results, null, 4$/;"	o	line:35	language:coffee	object:argv
-results	app.coffee	/^    results = []$/;"	o	line:29	language:coffee	object:argv
+Progress	app.coffee	/^    console.log "Progress: "$/;"	o	line:32	language:coffee	object:window
+Progress	lib/main.coffee	/^    console.log "Progress: "$/;"	o	line:32	language:coffee	object:window
+are	app.coffee	/^  console.log "Headers are: #{headers.join ', '}"$/;"	o	line:56	language:coffee	object:parseData
+are	lib/main.coffee	/^  console.log "Headers are: #{headers.join ', '}"$/;"	o	line:56	language:coffee	object:parseData
+argv	app.coffee	/^argv = require('yargs').argv$/;"	o	line:15	language:coffee	object:window
+argv	lib/main.coffee	/^argv = require('yargs').argv$/;"	o	line:15	language:coffee	object:window
+dataset	app.coffee	/^  dataset = JSON.parse dataset$/;"	o	line:51	language:coffee	object:parseData
+dataset	lib/main.coffee	/^  dataset = JSON.parse dataset$/;"	o	line:51	language:coffee	object:parseData
+error	app.coffee	/^      throw new Error "Remote resource request failed with an error: #{JSON.stringify err, null, 4}"$/;"	o	line:28	language:coffee	object:window
+error	lib/main.coffee	/^      throw new Error "Remote resource request failed with an error: #{JSON.stringify err, null, 4}"$/;"	o	line:28	language:coffee	object:window
+fs	app.coffee	/^fs = require 'fs'$/;"	o	line:14	language:coffee	object:window
+fs	lib/main.coffee	/^fs = require 'fs'$/;"	o	line:14	language:coffee	object:window
+headers	app.coffee	/^  headers = (column.name for column in dataset.meta.view.columns)$/;"	o	line:55	language:coffee	object:parseData
+headers	lib/main.coffee	/^  headers = (column.name for column in dataset.meta.view.columns)$/;"	o	line:55	language:coffee	object:parseData
+if	app.coffee	/^    if err$/;"	b	line:27	language:coffee
+if	app.coffee	/^    if err$/;"	b	line:39	language:coffee
+if	app.coffee	/^    if err$/;"	b	line:70	language:coffee
+if	app.coffee	/^if urlObj.protocol?.match /http(?:s)?/$/;"	b	line:24	language:coffee
+if	lib/main.coffee	/^    if err$/;"	b	line:27	language:coffee
+if	lib/main.coffee	/^    if err$/;"	b	line:39	language:coffee
+if	lib/main.coffee	/^    if err$/;"	b	line:70	language:coffee
+if	lib/main.coffee	/^if urlObj.protocol?.match /http(?:s)?/$/;"	b	line:24	language:coffee
+newRaw	lib/main.coffee	/^    newRaw = {}$/;"	o	line:61	language:coffee	object:parseData.raw
+newRow	app.coffee	/^    newRow = {}$/;"	o	line:61	language:coffee	object:parseData.row
+parseData	app.coffee	/^parseData = (dataset) ->$/;"	f	line:47	language:coffee	object:window
+parseData	lib/main.coffee	/^parseData = (dataset) ->$/;"	f	line:47	language:coffee	object:window
+raw	lib/main.coffee	/^  for raw, i in dataset.data$/;"	o	line:60	language:coffee	object:parseData
+request	app.coffee	/^request = require 'request'$/;"	o	line:17	language:coffee	object:window
+request	lib/main.coffee	/^request = require 'request'$/;"	o	line:17	language:coffee	object:window
+results	app.coffee	/^  results = JSON.stringify results, null, 4$/;"	o	line:66	language:coffee	object:parseData
+results	app.coffee	/^  results = []$/;"	o	line:59	language:coffee	object:parseData
+results	lib/main.coffee	/^  results = JSON.stringify results, null, 4$/;"	o	line:66	language:coffee	object:parseData
+results	lib/main.coffee	/^  results = []$/;"	o	line:59	language:coffee	object:parseData
+row	app.coffee	/^  for row, i in dataset.data$/;"	o	line:60	language:coffee	object:parseData
+url	app.coffee	/^url = require 'url'$/;"	o	line:16	language:coffee	object:window
+url	lib/main.coffee	/^url = require 'url'$/;"	o	line:16	language:coffee	object:window
+urlObj	app.coffee	/^urlObj = url.parse argv.in$/;"	o	line:22	language:coffee	object:window
+urlObj	lib/main.coffee	/^urlObj = url.parse argv.in$/;"	o	line:22	language:coffee	object:window
