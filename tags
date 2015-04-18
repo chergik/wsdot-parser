@@ -1,0 +1,17 @@
+!_TAG_FILE_FORMAT	2	/extended format/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Łukasz Korecki	/lukasz@korecki.me/
+!_TAG_PROGRAM_NAME	CoffeeTags	//
+!_TAG_PROGRAM_URL	https://github.com/lukaszkorecki/CoffeeTags	/GitHub repository/
+!_TAG_PROGRAM_VERSION	0.5.1	//
+are	app.coffee	/^    console.log "Headers are: #{headers.join ', '}"$/;"	o	line:27	language:coffee	object:argv
+argv	app.coffee	/^argv = require('yargs').argv$/;"	o	line:12	language:coffee	object:window
+dataset	app.coffee	/^    dataset = JSON.parse dataset$/;"	o	line:23	language:coffee	object:argv
+fs	app.coffee	/^fs = require 'fs'$/;"	o	line:11	language:coffee	object:window
+headers	app.coffee	/^    headers = (column.name for column in dataset.meta.view.columns)$/;"	o	line:26	language:coffee	object:argv
+if	app.coffee	/^      if err$/;"	b	line:38	language:coffee
+if	app.coffee	/^  if err$/;"	b	line:18	language:coffee
+newRaw	app.coffee	/^      newRaw = {}$/;"	o	line:31	language:coffee	object:argv.raw
+raw	app.coffee	/^    for raw, i in dataset.data$/;"	o	line:30	language:coffee	object:argv
+results	app.coffee	/^    results = JSON.stringify results, null, 4$/;"	o	line:35	language:coffee	object:argv
+results	app.coffee	/^    results = []$/;"	o	line:29	language:coffee	object:argv

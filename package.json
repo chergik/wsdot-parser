@@ -1,0 +1,21 @@
+{
+  "name": "wsdot_parser",
+  "version": "1.0.0",
+  "description": "Parse wsdot map json files",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "map",
+    "wsdot",
+    "parser",
+    "geo",
+    "json"
+  ],
+  "author": "Andrey Chergik <achergik@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "yargs": "^3.7.2"
+  }
+}
