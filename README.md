@@ -1,12 +1,12 @@
-
-### Install coffee-script first.
-```$ sudo npm install coffee-script -g```
+### Since packge is not on npm, clone it using git
+### Install this packge globally
+```$ npm install ./wsdot_parser -g```
 
 ### Run the program with input file as the resource:
-```$ coffee app.coffee --in=wsdot-file.json --out=../somedir/newfile.json```
+```$ wsdotp --in=wsdot-file.json --out=../somedir/newfile.json```
 ### or with a remote url:
 ```
-$ coffee app.coffee --in=https://data.seattle.gov/api/views/2az7-96yc/rows.json?accessType=DOWNLOAD \
+$ wsdotp --in=https://data.seattle.gov/api/views/2az7-96yc/rows.json?accessType=DOWNLOAD \
                     --out=../intersections.json
 ```
 ### Example json data could be downloaded from [here](http://catalog.data.gov/dataset/intersections)
@@ -50,7 +50,7 @@ $ coffee app.coffee --in=https://data.seattle.gov/api/views/2az7-96yc/rows.json?
         "SIGNAL_TYPE": "NONE"
     },
     ...
-    {...}, 
+    {...},
     {...}
 ]
 ```

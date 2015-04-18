@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Parse wsdot map json files",
   "main": "app.js",
+  "bin": {
+    "wsdotp": "./bin/wsdotp.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,6 +19,8 @@
   "author": "Andrey Chergik <achergik@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "fs": "0.0.2",
+    "path": "^0.11.14",
     "request": "^2.55.0",
     "url": "^0.10.3",
     "yargs": "^3.7.2"
