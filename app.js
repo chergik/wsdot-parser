@@ -20,8 +20,16 @@ url = require('url');
 
 request = require('request');
 
-module.exports = function(resource, out) {
+module.exports = function(resource, out, debug) {
   var chunksCount, parseData, urlObj, _ref;
+  if (debug == null) {
+    debug = false;
+  }
+  debug = function(message) {
+    if (debug) {
+      return console.log(message);
+    }
+  };
   if (!resource) {
     throw new Error("No input file given");
   }
@@ -30,7 +38,7 @@ module.exports = function(resource, out) {
   }
   urlObj = url.parse(resource);
   if ((_ref = urlObj.protocol) != null ? _ref.match(/http(?:s)?/) : void 0) {
-    console.log("Sending request to the remote resource. Retrieving data.");
+    debug("Sending request to the remote resource. Retrieving data.");
     chunksCount = 0;
     request.get(url.format(urlObj), function(err, resp, body) {
       if (err) {
@@ -39,7 +47,7 @@ module.exports = function(resource, out) {
         return parseData(body);
       }
     }).on('response', function(response) {
-      return console.log("Progress: ");
+      return debug("Progress: ");
     }).on('data', function(chunk) {
       if (chunksCount++ % 10 === 0) {
         return process.stdout.write('.');
@@ -58,11 +66,11 @@ module.exports = function(resource, out) {
   }
   return parseData = function(dataset) {
     var column, headers, i, j, newRow, results, row, value, _i, _j, _len, _len1, _ref1;
-    console.log("\nResource " + (url.format(urlObj)) + " succesfully consumed and is about to be processed.");
-    console.log("Trying to parse resource content as JSON.");
+    debug("\nResource " + (url.format(urlObj)) + " succesfully consumed and is about to be processed.");
+    debug("Trying to parse resource content as JSON.");
     dataset = JSON.parse(dataset);
-    console.log("Data successfully parsed as JSON.");
-    console.log("Fetching headers.");
+    debug("Data successfully parsed as JSON.");
+    debug("Fetching headers.");
     headers = (function() {
       var _i, _len, _ref1, _results;
       _ref1 = dataset.meta.view.columns;
@@ -73,8 +81,8 @@ module.exports = function(resource, out) {
       }
       return _results;
     })();
-    console.log("Headers are: " + (headers.join(', ')));
-    console.log("Mapping headers and columns data.");
+    debug("Headers are: " + (headers.join(', ')));
+    debug("Mapping headers and columns data.");
     results = [];
     _ref1 = dataset.data;
     for (i = _i = 0, _len = _ref1.length; _i < _len; i = ++_i) {
@@ -86,14 +94,14 @@ module.exports = function(resource, out) {
       }
       results.push(newRow);
     }
-    console.log("Stringifying mapped data to JSON.");
+    debug("Stringifying mapped data to JSON.");
     results = JSON.stringify(results, null, 4);
-    console.log("Saving pretty data to the new out file \"" + out + "\".");
+    debug("Saving pretty data to the new out file \"" + out + "\".");
     return fs.writeFile(out, results, function(err) {
       if (err) {
         throw new Error("Error during saving data to the file \"" + out + "\": " + err);
       } else {
-        return console.log("File \"" + out + "\" successfully saved.");
+        return debug("File \"" + out + "\" successfully saved.");
       }
     });
   };

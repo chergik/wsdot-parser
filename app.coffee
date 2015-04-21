@@ -15,7 +15,10 @@ fs      = require 'fs'
 url     = require 'url'
 request = require 'request'
 
-module.exports = (resource, out) ->
+module.exports = (resource, out, debug=false) ->
+
+  debug = (message) ->
+    console.log message if debug
 
   throw new Error("No input file given") unless resource
   throw new Error("No output file given") unless out
@@ -23,7 +26,7 @@ module.exports = (resource, out) ->
   urlObj = url.parse resource
 
   if urlObj.protocol?.match /http(?:s)?/
-    console.log "Sending request to the remote resource. Retrieving data."
+    debug "Sending request to the remote resource. Retrieving data."
     chunksCount = 0
 
     request.get(url.format(urlObj), (err, resp, body) ->
@@ -32,7 +35,7 @@ module.exports = (resource, out) ->
       else
         parseData body
     ).on('response', (response) ->
-      console.log "Progress: "
+      debug "Progress: "
     ).on('data', (chunk) ->
       process.stdout.write '.' if chunksCount++ % 10 is 0
     )
@@ -48,30 +51,30 @@ module.exports = (resource, out) ->
     throw new Error("Provided --in value is neither path nor url.")
 
   parseData = (dataset) ->
-    console.log "\nResource #{url.format urlObj} succesfully consumed and is about to be processed."
+    debug "\nResource #{url.format urlObj} succesfully consumed and is about to be processed."
 
-    console.log "Trying to parse resource content as JSON."
+    debug "Trying to parse resource content as JSON."
     dataset = JSON.parse dataset
-    console.log "Data successfully parsed as JSON."
+    debug "Data successfully parsed as JSON."
 
-    console.log "Fetching headers."
+    debug "Fetching headers."
     headers = (column.name for column in dataset.meta.view.columns)
-    console.log "Headers are: #{headers.join ', '}"
+    debug "Headers are: #{headers.join ', '}"
 
-    console.log "Mapping headers and columns data."
+    debug "Mapping headers and columns data."
     results = []
     for row, i in dataset.data
       newRow = {}
       newRow[headers[j]] = value for value, j in row
       results.push newRow
 
-    console.log "Stringifying mapped data to JSON."
+    debug "Stringifying mapped data to JSON."
     results = JSON.stringify results, null, 4
 
-    console.log "Saving pretty data to the new out file \"#{out}\"."
+    debug "Saving pretty data to the new out file \"#{out}\"."
     fs.writeFile out, results, (err) ->
       if err
         throw new Error("Error during saving data to the file \"#{out}\": #{err}")
       else
-        console.log "File \"#{out}\" successfully saved."
+        debug "File \"#{out}\" successfully saved."
 
