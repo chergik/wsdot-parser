@@ -15,13 +15,17 @@ fs      = require 'fs'
 url     = require 'url'
 request = require 'request'
 
-module.exports = (resource, out, debug=false) ->
+module.exports = (resource, out, cb=null) ->
 
   debug = (message) ->
-    console.log message if debug
+    console.log message unless cb
 
-  throw new Error("No input file given") unless resource
-  throw new Error("No output file given") unless out
+  unless resource
+    msg = "No input file given"
+    if cb then cb(msg, null) else throw new Error(msg)
+  unless out
+    msg = "No output file given"
+    if cb then cb(msg, null) else throw new Error(msg)
 
   urlObj = url.parse resource
 
@@ -31,9 +35,10 @@ module.exports = (resource, out, debug=false) ->
 
     request.get(url.format(urlObj), (err, resp, body) ->
       if err
-        throw new Error "Remote resource request failed with an error: #{JSON.stringify err, null, 4}"
+        msg = "Remote resource request failed with an error: #{JSON.stringify err, null, 4}"
+        if cb then cb(msg, null) else throw new Error(msg)
       else
-        parseData body
+        parseData body, cb
     ).on('response', (response) ->
       debug "Progress: "
     ).on('data', (chunk) ->
@@ -43,14 +48,16 @@ module.exports = (resource, out, debug=false) ->
   else if urlObj.path?
     fs.readFile urlObj.path, (err, dataset) ->
       if err
-        throw new Error("Error reading input file #{urlObj.path}: #{JSON.stringify err}")
+        msg = "Error reading input file #{urlObj.path}: #{JSON.stringify err}"
+        if cb then cb(msg, null) else throw new Error(msg)
       else
-        parseData(dataset)
+        parseData(dataset, cb)
 
   else
-    throw new Error("Provided --in value is neither path nor url.")
+    msg = "Provided --in value is neither path nor url."
+    if cb then cb(msg, null) else throw new Error(msg)
 
-  parseData = (dataset) ->
+  parseData = (dataset, cb=null) ->
     debug "\nResource #{url.format urlObj} succesfully consumed and is about to be processed."
 
     debug "Trying to parse resource content as JSON."
@@ -63,18 +70,21 @@ module.exports = (resource, out, debug=false) ->
 
     debug "Mapping headers and columns data."
     results = []
-    for row, i in dataset.data
+    results = for row, i in dataset.data
       newRow = {}
       newRow[headers[j]] = value for value, j in row
       results.push newRow
 
-    debug "Stringifying mapped data to JSON."
-    results = JSON.stringify results, null, 4
+    if cb
+      cb(null, results)
+    else
+      debug "Stringifying mapped data to JSON."
+      resultsJson = JSON.stringify results, null, 4
 
-    debug "Saving pretty data to the new out file \"#{out}\"."
-    fs.writeFile out, results, (err) ->
-      if err
-        throw new Error("Error during saving data to the file \"#{out}\": #{err}")
-      else
-        debug "File \"#{out}\" successfully saved."
+      debug "Saving pretty data to the new out file \"#{out}\"."
+      fs.writeFile out, results, (err) ->
+        if err
+          throw new Error("Error during saving data to the file \"#{out}\": #{err}")
+        else
+          debug "File \"#{out}\" successfully saved."
 

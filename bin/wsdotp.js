@@ -22,4 +22,4 @@ if (!argv.out) {
   throw new Error("No output file given");
 }
 
-require(path.join(module_root, 'app'))(argv["in"], argv.out, true);
+require(path.join(module_root, 'app'))(argv["in"], argv.out);

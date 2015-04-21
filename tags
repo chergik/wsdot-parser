@@ -4,36 +4,46 @@
 !_TAG_PROGRAM_NAME	CoffeeTags	//
 !_TAG_PROGRAM_URL	https://github.com/lukaszkorecki/CoffeeTags	/GitHub repository/
 !_TAG_PROGRAM_VERSION	0.5.1	//
-Progress	app.coffee	/^      debug "Progress: "$/;"	o	line:38	language:coffee	object:exports..chunksCount
+Progress	app.coffee	/^      debug "Progress: "$/;"	o	line:43	language:coffee	object:exports..chunksCount
 Progress	lib/main.coffee	/^    console.log "Progress: "$/;"	o	line:32	language:coffee	object:window
-are	app.coffee	/^    debug "Headers are: #{headers.join ', '}"$/;"	o	line:62	language:coffee	object:exports.parseData
+are	app.coffee	/^    debug "Headers are: #{headers.join ', '}"$/;"	o	line:69	language:coffee	object:exports.parseData
 are	lib/main.coffee	/^  console.log "Headers are: #{headers.join ', '}"$/;"	o	line:56	language:coffee	object:parseData
 argv	bin/wsdotp.coffee	/^argv = require('yargs').argv$/;"	o	line:1	language:coffee	object:window
 argv	lib/main.coffee	/^argv = require('yargs').argv$/;"	o	line:15	language:coffee	object:window
-chunksCount	app.coffee	/^    chunksCount = 0$/;"	o	line:30	language:coffee	object:exports.
-dataset	app.coffee	/^    dataset = JSON.parse dataset$/;"	o	line:57	language:coffee	object:exports.parseData
+chunksCount	app.coffee	/^    chunksCount = 0$/;"	o	line:34	language:coffee	object:exports.
+dataset	app.coffee	/^    dataset = JSON.parse dataset$/;"	o	line:64	language:coffee	object:exports.parseData
 dataset	lib/main.coffee	/^  dataset = JSON.parse dataset$/;"	o	line:51	language:coffee	object:parseData
 debug	app.coffee	/^  debug = (message) ->$/;"	f	line:20	language:coffee	object:exports
-error	app.coffee	/^        throw new Error "Remote resource request failed with an error: #{JSON.stringify err, null, 4}"$/;"	o	line:34	language:coffee	object:exports..chunksCount
 error	lib/main.coffee	/^      throw new Error "Remote resource request failed with an error: #{JSON.stringify err, null, 4}"$/;"	o	line:28	language:coffee	object:window
-exports	app.coffee	/^module.exports = (resource, out, debug=false) ->$/;"	f	line:18	language:coffee	object:window
+exports	app.coffee	/^module.exports = (resource, out, cb=null) ->$/;"	f	line:18	language:coffee	object:window
 fs	app.coffee	/^fs      = require 'fs'$/;"	o	line:14	language:coffee	object:window
 fs	bin/wsdotp.coffee	/^fs   = require 'fs'$/;"	o	line:3	language:coffee	object:window
 fs	lib/main.coffee	/^fs = require 'fs'$/;"	o	line:14	language:coffee	object:window
-headers	app.coffee	/^    headers = (column.name for column in dataset.meta.view.columns)$/;"	o	line:61	language:coffee	object:exports.parseData
+headers	app.coffee	/^    headers = (column.name for column in dataset.meta.view.columns)$/;"	o	line:68	language:coffee	object:exports.parseData
 headers	lib/main.coffee	/^  headers = (column.name for column in dataset.meta.view.columns)$/;"	o	line:55	language:coffee	object:parseData
-if	app.coffee	/^      if err$/;"	b	line:33	language:coffee
-if	app.coffee	/^      if err$/;"	b	line:45	language:coffee
-if	app.coffee	/^      if err$/;"	b	line:76	language:coffee
-if	app.coffee	/^  if urlObj.protocol?.match /http(?:s)?/$/;"	b	line:28	language:coffee
+if	app.coffee	/^        if cb then cb(msg, null) else throw new Error(msg)$/;"	b	line:39	language:coffee
+if	app.coffee	/^        if cb then cb(msg, null) else throw new Error(msg)$/;"	b	line:52	language:coffee
+if	app.coffee	/^        if err$/;"	b	line:86	language:coffee
+if	app.coffee	/^      if err$/;"	b	line:37	language:coffee
+if	app.coffee	/^      if err$/;"	b	line:50	language:coffee
+if	app.coffee	/^    if cb then cb(msg, null) else throw new Error(msg)$/;"	b	line:25	language:coffee
+if	app.coffee	/^    if cb then cb(msg, null) else throw new Error(msg)$/;"	b	line:28	language:coffee
+if	app.coffee	/^    if cb then cb(msg, null) else throw new Error(msg)$/;"	b	line:58	language:coffee
+if	app.coffee	/^    if cb$/;"	b	line:78	language:coffee
+if	app.coffee	/^  if urlObj.protocol?.match /http(?:s)?/$/;"	b	line:32	language:coffee
 if	lib/main.coffee	/^    if err$/;"	b	line:27	language:coffee
 if	lib/main.coffee	/^    if err$/;"	b	line:39	language:coffee
 if	lib/main.coffee	/^    if err$/;"	b	line:70	language:coffee
 if	lib/main.coffee	/^if urlObj.protocol?.match /http(?:s)?/$/;"	b	line:24	language:coffee
 module_root	bin/wsdotp.coffee	/^module_root = path.join realdir, '..'$/;"	o	line:8	language:coffee	object:window
+msg	app.coffee	/^        msg = "Error reading input file #{urlObj.path}: #{JSON.stringify err}"$/;"	o	line:51	language:coffee	object:exports..chunksCount
+msg	app.coffee	/^        msg = "Remote resource request failed with an error: #{JSON.stringify err, null, 4}"$/;"	o	line:38	language:coffee	object:exports..chunksCount
+msg	app.coffee	/^    msg = "No input file given"$/;"	o	line:24	language:coffee	object:exports
+msg	app.coffee	/^    msg = "No output file given"$/;"	o	line:27	language:coffee	object:exports
+msg	app.coffee	/^    msg = "Provided --in value is neither path nor url."$/;"	o	line:57	language:coffee	object:exports.
 newRaw	lib/main.coffee	/^    newRaw = {}$/;"	o	line:61	language:coffee	object:parseData.raw
-newRow	app.coffee	/^      newRow = {}$/;"	o	line:67	language:coffee	object:exports.parseData.row
-parseData	app.coffee	/^  parseData = (dataset) ->$/;"	f	line:53	language:coffee	object:exports
+newRow	app.coffee	/^      newRow = {}$/;"	o	line:74	language:coffee	object:exports.parseData.results
+parseData	app.coffee	/^  parseData = (dataset, cb=null) ->$/;"	f	line:60	language:coffee	object:exports
 parseData	lib/main.coffee	/^parseData = (dataset) ->$/;"	f	line:47	language:coffee	object:window
 path	bin/wsdotp.coffee	/^path = require 'path'$/;"	o	line:2	language:coffee	object:window
 raw	lib/main.coffee	/^  for raw, i in dataset.data$/;"	o	line:60	language:coffee	object:parseData
@@ -41,12 +51,13 @@ realdir	bin/wsdotp.coffee	/^realdir = path.dirname realpath$/;"	o	line:6	languag
 realpath	bin/wsdotp.coffee	/^realpath = fs.realpathSync __filename$/;"	o	line:5	language:coffee	object:window
 request	app.coffee	/^request = require 'request'$/;"	o	line:16	language:coffee	object:window
 request	lib/main.coffee	/^request = require 'request'$/;"	o	line:17	language:coffee	object:window
-results	app.coffee	/^    results = JSON.stringify results, null, 4$/;"	o	line:72	language:coffee	object:exports.parseData
-results	app.coffee	/^    results = []$/;"	o	line:65	language:coffee	object:exports.parseData
+results	app.coffee	/^    results = []$/;"	o	line:72	language:coffee	object:exports.parseData
 results	lib/main.coffee	/^  results = JSON.stringify results, null, 4$/;"	o	line:66	language:coffee	object:parseData
 results	lib/main.coffee	/^  results = []$/;"	o	line:59	language:coffee	object:parseData
-row	app.coffee	/^    for row, i in dataset.data$/;"	o	line:66	language:coffee	object:exports.parseData
+resultsJson	app.coffee	/^      resultsJson = JSON.stringify results, null, 4$/;"	o	line:82	language:coffee	object:exports.parseData
+unless	app.coffee	/^  unless out$/;"	b	line:26	language:coffee
+unless	app.coffee	/^  unless resource$/;"	b	line:23	language:coffee
 url	app.coffee	/^url     = require 'url'$/;"	o	line:15	language:coffee	object:window
 url	lib/main.coffee	/^url = require 'url'$/;"	o	line:16	language:coffee	object:window
-urlObj	app.coffee	/^  urlObj = url.parse resource$/;"	o	line:26	language:coffee	object:exports
+urlObj	app.coffee	/^  urlObj = url.parse resource$/;"	o	line:30	language:coffee	object:exports
 urlObj	lib/main.coffee	/^urlObj = url.parse argv.in$/;"	o	line:22	language:coffee	object:window

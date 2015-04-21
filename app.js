@@ -20,21 +20,31 @@ url = require('url');
 
 request = require('request');
 
-module.exports = function(resource, out, debug) {
-  var chunksCount, parseData, urlObj, _ref;
-  if (debug == null) {
-    debug = false;
+module.exports = function(resource, out, cb) {
+  var chunksCount, debug, msg, parseData, urlObj, _ref;
+  if (cb == null) {
+    cb = null;
   }
   debug = function(message) {
-    if (debug) {
+    if (!cb) {
       return console.log(message);
     }
   };
   if (!resource) {
-    throw new Error("No input file given");
+    msg = "No input file given";
+    if (cb) {
+      cb(msg, null);
+    } else {
+      throw new Error(msg);
+    }
   }
   if (!out) {
-    throw new Error("No output file given");
+    msg = "No output file given";
+    if (cb) {
+      cb(msg, null);
+    } else {
+      throw new Error(msg);
+    }
   }
   urlObj = url.parse(resource);
   if ((_ref = urlObj.protocol) != null ? _ref.match(/http(?:s)?/) : void 0) {
@@ -42,9 +52,14 @@ module.exports = function(resource, out, debug) {
     chunksCount = 0;
     request.get(url.format(urlObj), function(err, resp, body) {
       if (err) {
-        throw new Error("Remote resource request failed with an error: " + (JSON.stringify(err, null, 4)));
+        msg = "Remote resource request failed with an error: " + (JSON.stringify(err, null, 4));
+        if (cb) {
+          return cb(msg, null);
+        } else {
+          throw new Error(msg);
+        }
       } else {
-        return parseData(body);
+        return parseData(body, cb);
       }
     }).on('response', function(response) {
       return debug("Progress: ");
@@ -56,16 +71,29 @@ module.exports = function(resource, out, debug) {
   } else if (urlObj.path != null) {
     fs.readFile(urlObj.path, function(err, dataset) {
       if (err) {
-        throw new Error("Error reading input file " + urlObj.path + ": " + (JSON.stringify(err)));
+        msg = "Error reading input file " + urlObj.path + ": " + (JSON.stringify(err));
+        if (cb) {
+          return cb(msg, null);
+        } else {
+          throw new Error(msg);
+        }
       } else {
-        return parseData(dataset);
+        return parseData(dataset, cb);
       }
     });
   } else {
-    throw new Error("Provided --in value is neither path nor url.");
+    msg = "Provided --in value is neither path nor url.";
+    if (cb) {
+      cb(msg, null);
+    } else {
+      throw new Error(msg);
+    }
   }
-  return parseData = function(dataset) {
-    var column, headers, i, j, newRow, results, row, value, _i, _j, _len, _len1, _ref1;
+  return parseData = function(dataset, cb) {
+    var column, headers, i, j, newRow, results, resultsJson, row, value;
+    if (cb == null) {
+      cb = null;
+    }
     debug("\nResource " + (url.format(urlObj)) + " succesfully consumed and is about to be processed.");
     debug("Trying to parse resource content as JSON.");
     dataset = JSON.parse(dataset);
@@ -84,25 +112,34 @@ module.exports = function(resource, out, debug) {
     debug("Headers are: " + (headers.join(', ')));
     debug("Mapping headers and columns data.");
     results = [];
-    _ref1 = dataset.data;
-    for (i = _i = 0, _len = _ref1.length; _i < _len; i = ++_i) {
-      row = _ref1[i];
-      newRow = {};
-      for (j = _j = 0, _len1 = row.length; _j < _len1; j = ++_j) {
-        value = row[j];
-        newRow[headers[j]] = value;
+    results = (function() {
+      var _i, _j, _len, _len1, _ref1, _results;
+      _ref1 = dataset.data;
+      _results = [];
+      for (i = _i = 0, _len = _ref1.length; _i < _len; i = ++_i) {
+        row = _ref1[i];
+        newRow = {};
+        for (j = _j = 0, _len1 = row.length; _j < _len1; j = ++_j) {
+          value = row[j];
+          newRow[headers[j]] = value;
+        }
+        _results.push(results.push(newRow));
       }
-      results.push(newRow);
+      return _results;
+    })();
+    if (cb) {
+      return cb(null, results);
+    } else {
+      debug("Stringifying mapped data to JSON.");
+      resultsJson = JSON.stringify(results, null, 4);
+      debug("Saving pretty data to the new out file \"" + out + "\".");
+      return fs.writeFile(out, results, function(err) {
+        if (err) {
+          throw new Error("Error during saving data to the file \"" + out + "\": " + err);
+        } else {
+          return debug("File \"" + out + "\" successfully saved.");
+        }
+      });
     }
-    debug("Stringifying mapped data to JSON.");
-    results = JSON.stringify(results, null, 4);
-    debug("Saving pretty data to the new out file \"" + out + "\".");
-    return fs.writeFile(out, results, function(err) {
-      if (err) {
-        throw new Error("Error during saving data to the file \"" + out + "\": " + err);
-      } else {
-        return debug("File \"" + out + "\" successfully saved.");
-      }
-    });
   };
 };
