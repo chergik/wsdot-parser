@@ -1,17 +1,29 @@
 ### Since packge is not on npm, clone it using git
-### Install this packge globally
-```$ npm install ./wsdot_parser -g```
 
-### Run the program with input file as the resource:
-```$ wsdotp --in=wsdot-file.json --out=../somedir/newfile.json```
-### or with a remote url:
+### Installation
+
+Install this packge globally
+```
+$ npm install ./wsdot_parser -g
+```
+
+### Execution
+
+Run the program with input file as the resource:
+```
+$ wsdotp --in=wsdot-file.json --out=../somedir/newfile.json
+```
+
+or with a remote url:
 ```
 $ wsdotp --in=https://data.seattle.gov/api/views/2az7-96yc/rows.json?accessType=DOWNLOAD \
                     --out=../intersections.json
 ```
-### Example json data could be downloaded from [here](http://catalog.data.gov/dataset/intersections)
+### Source data.
+Example json data could be downloaded from [here](http://catalog.data.gov/dataset/intersections)
 
-### The output of the parser will look like an array of objects with key-value pairs:
+### Output example
+The output of the parser will look like an array of objects with key-value pairs:
 ```
 [
     {
